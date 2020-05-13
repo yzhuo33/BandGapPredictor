@@ -3,6 +3,8 @@ Predict the bandgap energy for inorganic materials
 
 This package provides a machine learning model trained based on experimetally measurements to predict the bandgap energy (Eg) for inorganic materials via the command-line.
 
+put compositions that you want to predict in the "to_predict" file, then run "model_uniform" in Jupyter. After running the file, you will get a new .xlsx file name "predicted", where the first column is your composition and the second is predicted Eg.
+
 ## Table of Contents
 
 - [Citations](#citations)
