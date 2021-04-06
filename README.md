@@ -42,7 +42,7 @@ After preparing `to_predict.xlsx`, you can get the Eg prediction by:
 python Eg_model.py
 ```
 
-`Eg_model.py` will automatically read `elements.xlsx`, and `Training_Set.xlsx` to generate a prediction. A classifier will first categorize a composition into metals (Eg = 0) or nonmetals (Eg > 0), then the Eg of nonmetals will be predicted with a regressor. After running, you will get a `.xlsx` file named `predicted.xlsx` in the same directory, in which the predicted Eg is provided next to the corresponding composition.
+`Eg_model.py` will automatically read `elements.xlsx` and `Training_Set.xlsx` to generate a prediction. A classifier will first categorize a composition into metals (Eg = 0) or nonmetals (Eg > 0), then the Eg of nonmetals will be predicted with a regressor. After running, you will get a `.xlsx` file named `predicted.xlsx` in the same directory, in which the predicted Eg is provided next to the corresponding composition.
 
 ## Authors
 
