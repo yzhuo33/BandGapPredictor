@@ -15,8 +15,6 @@ import pickle
 from sklearn.svm import SVR
 import pymatgen as mg
 from pymatgen.core.composition import Composition
-import matplotlib.pyplot as plt
-import os
 
 #read data
 DE_c = pd.read_excel('Training_Set.xlsx',sheet_name=0)
@@ -70,9 +68,9 @@ class Vectorize_Formula:
 	def get_features(self, formula):
 		try:
 			fractional_composition = Composition(formula).fractional_composition.as_dict()
-#			element_composition = Composition(formula).element_composition.as_dict()
+			element_composition = Composition(formula).element_composition.as_dict()
 			avg_feature = np.zeros(len(self.element_df.iloc[0]))
-#			sum_feature = np.zeros(len(self.element_df.iloc[0]))
+			sum_feature = np.zeros(len(self.element_df.iloc[0]))
 			for key in fractional_composition:
 				try:
 					avg_feature += self.element_df.loc[key].values * fractional_composition[key]                  
