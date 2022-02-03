@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed May 13 13:56:18 2020
+Modified on Thu Feb 3 10:06:00 2022
 
 @author: Ya Zhuo, University of Houston
 """
@@ -13,6 +14,9 @@ from sklearn.svm import SVC
 import pickle
 from sklearn.svm import SVR
 import pymatgen as mg
+from pymatgen.core.composition import Composition
+import matplotlib.pyplot as plt
+import os
 
 #read data
 DE_c = pd.read_excel('Training_Set.xlsx',sheet_name=0)
@@ -60,13 +64,13 @@ class Vectorize_Formula:
 		self.element_df.set_index('Symbol',inplace=True)
 		self.column_names = []
 		for string in ['avg','diff','max','min']:
-			for column_name in list(self.element_df.columns.values):
+			for column_name in self.element_df.columns.values:
 				self.column_names.append(string+'_'+column_name)
 
 	def get_features(self, formula):
 		try:
-			fractional_composition = mg.Composition(formula).fractional_composition.as_dict()
-#			element_composition = mg.Composition(formula).element_composition.as_dict()
+			fractional_composition = Composition(formula).fractional_composition.as_dict()
+#			element_composition = Composition(formula).element_composition.as_dict()
 			avg_feature = np.zeros(len(self.element_df.iloc[0]))
 #			sum_feature = np.zeros(len(self.element_df.iloc[0]))
 			for key in fractional_composition:
