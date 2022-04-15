@@ -1,0 +1,9 @@
+__pychache__/
+*.bak
+*.txt
+*.png
+*.pyc
+*.pkl
+*.docx
+.DS_Store
+!requirements.txt
