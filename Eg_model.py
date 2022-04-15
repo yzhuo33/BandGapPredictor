@@ -31,7 +31,6 @@ X_train_c, X_test_c, Y_train_c, Y_test_c = train_test_split(X_c, Y_c,  random_st
 scaler_c = preprocessing.StandardScaler()
 X_train_c = scaler_c.fit_transform(X_train_c)
 X_test_c = scaler_c.fit_transform(X_test_c)
-# scaler_c = preprocessing.StandardScaler().fit(X_c)
 X_c = scaler_c.fit_transform(X_c)
 
 # Random forest model construction
@@ -63,9 +62,10 @@ print("Random forest classification F1 score:", metrics.f1_score(Y_test_c, y_pre
 # plt.xlabel('max_features')
 # plt.ylabel('f1_score')
 # plt.savefig('Elbow Graph for classification_max_features.png')
+
 # Final  model
-# save model
-classification = RandomForestClassifier(n_jobs=-1, random_state=100, n_estimators=100, max_features=20).fit(X_c, Y_c)
+classification = RandomForestClassifier(n_jobs=-1, random_state=101).fit(X_c, Y_c)
+# Save final model
 classification_model = pickle.dumps(classification)
 
 # Regression
@@ -85,7 +85,7 @@ X_test_r = scaler_r.fit_transform(X_test_r)
 X_r = scaler_r.fit_transform(X_r)
 
 # Random forest model construction
-regression_eval = RandomForestRegressor(n_jobs=-1, random_state=100).fit(X_train_r, Y_train_r)
+regression_eval = RandomForestRegressor(n_jobs=-1, n_estimators=30).fit(X_train_r, Y_train_r)
 predicted_Y1_r = regression_eval.predict(X_train_r)
 
 # Estimation of regression model performance
@@ -121,8 +121,8 @@ print('Median Absolute Error:', metrics.median_absolute_error(Y_test_r, y_pred_r
 # plt.savefig('Elbow Graph for regression_max_features.png')
 
 # Final model
-regression = RandomForestRegressor(n_jobs=-1, random_state=100, n_estimators=150, max_features=25).fit(X_r, Y_r)
-# save model
+regression = RandomForestRegressor(n_jobs=-1, random_state=101, n_estimators=30).fit(X_r, Y_r)
+# Save final model
 regression_model = pickle.dumps(regression)
 
 prediction = pd.read_excel('to_predict.xlsx')
