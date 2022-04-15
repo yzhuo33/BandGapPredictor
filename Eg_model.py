@@ -12,50 +12,57 @@ from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 from sklearn.svm import SVC
 import pickle
-import joblib
 from sklearn.svm import SVR
 import pymatgen as mg
 from pymatgen.core.composition import Composition
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 
+
 # Classification
-#read data
+# read data
 DE_c = pd.read_excel('Training_Set.xlsx', sheet_name=0)
 array_c = DE_c.values
 X_c = array_c[:,3:139]
 Y_c = array_c[:,2]
 Y_c = Y_c.astype('int')
-#train/test split
+# train/test split
 X_train_c, X_test_c, Y_train_c, Y_test_c = train_test_split(X_c, Y_c, test_size=0.1, random_state=15, shuffle=True)
-#preprocessing
+# preprocessing
 scaler_c = preprocessing.StandardScaler().fit(X_train_c)
 X_train_c = scaler_c.transform(X_train_c)
 X_test_c = scaler_c.transform(X_test_c)
-#model construction
+# SVM model construction
 # classification=SVC(kernel='rbf',C=10**1.5, gamma= 0.01).fit(X_train_c, Y_train_c)
-rf_classification = RandomForestClassifier(n_jobs=-1).fit(X_train_c, Y_train_c)
+# print("SVM classification accuracy:", classification.score(X_test_c,  Y_test_c))
+# Random forest model construction
+classification = RandomForestClassifier(n_jobs=-1).fit(X_train_c, Y_train_c)
+print("Random forest classification accuracy:", classification.score(X_test_c,  Y_test_c))
 #save model
-classification_model=pickle.dumps(rf_classification)
+classification_model = pickle.dumps(classification)
 
-# REgression
-#read data
+# Regression
+# read data
 DE_r = pd.read_excel('Training_Set.xlsx', sheet_name=1)
 array_r = DE_r.values
 X_r = array_r[:,2:138]
 Y_r = array_r[:,1]
-#train/test split
+# train/test split
 X_train_r, X_test_r, Y_train_r, Y_test_r = train_test_split(X_r, Y_r, test_size=0.1, random_state=15, shuffle=True)
-#preprocessing
+# preprocessing
 scaler_r = preprocessing.StandardScaler().fit(X_train_r)
 X_train_r = scaler_r.transform(X_train_r)
 X_test_r = scaler_r.transform(X_test_r)
-#model construction
+# SVM model construction
 # regression = SVR(kernel='rbf',C=10, epsilon=0.1, gamma= 0.01).fit(X_train_r, Y_train_r)
-rf_regression = RandomForestRegressor(n_jobs=-1, random_state=101).fit(X_train_r, Y_train_r)
-predicted_Y1_r = rf_regression.predict(X_train_r)
-predicted_Y_r = rf_regression.predict(X_test_r)
+# print("SVM regression accuracy:", regression.score(X_test_r,  Y_test_r))
+# Random forest model construction
+regression = RandomForestRegressor(n_jobs=-1, random_state=101).fit(X_train_r, Y_train_r)
+print("Random forest regression accuracy:", regression.score(X_test_r,  Y_test_r))
+predicted_Y1_r = regression.predict(X_train_r)
+predicted_Y_r = regression.predict(X_test_r)
+
 #save model
-regression_model=pickle.dumps(rf_regression)
+regression_model = pickle.dumps(regression)
 
 prediction = pd.read_excel('to_predict.xlsx')
 prediction.head()
