@@ -5,6 +5,6 @@ __pychache__/
 *.pyc
 *.pkl
 *.docx
-predicted_comparison.xlsx
+*predicted_comparison.xlsx
 .DS_Store
 !requirements.txt
