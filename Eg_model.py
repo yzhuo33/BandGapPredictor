@@ -2,10 +2,10 @@
 """
 Created on Wed May 13 13:56:18 2020
 Modified on Thu Feb 3 10:06:00 2022
-Modified on Fri Apr 15 17:12:00 2022
+Modified on Fri Apr 16 17:12:00 2022
 
 @author: Ya Zhuo, University of Houston
-@contributor Aleksei Krasnov, Insitute of Chemistry, Syktyvkar, Ryssia
+@contributor Aleksei Krasnov, Insitute of Chemistry, Syktyvkar, Russia
 """
 
 
