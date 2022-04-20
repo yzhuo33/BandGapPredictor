@@ -37,16 +37,16 @@ X_train_c, X_test_c, Y_train_c, Y_test_c = train_test_split(X_c, Y_c, test_size=
 scaler_c = preprocessing.StandardScaler().fit(X_c)
 X_train_c = scaler_c.transform(X_train_c)
 X_test_c = scaler_c.transform(X_test_c)
-
+X_scaled_c = scaler_c.transform(X_c)
 # SVM model construction
 # classification=SVC(kernel='rbf',C=10**1.5, gamma= 0.01).fit(X_train_c, Y_train_c)
 # print("SVM classification accuracy:", classification.score(X_test_c,  Y_test_c))
 
 # Random forest model construction
-classification = RandomForestClassifier(n_jobs=-1, random_state=101).fit(X_train_c, Y_train_c)
+classification = RandomForestClassifier(n_jobs=-1, random_state=101, max_features=13, n_estimators=150).fit(X_train_c, Y_train_c)
 # Estimation of classification model performance
 y_pred = classification.predict(X_test_c)
-print("Random forest classification accuracy:", classification.score(X_test_c,  Y_test_c))
+print("Random forest classification accuracy:", classification.score(X_test_c,  Y_test_c)git )
 print("Random forest classification precision:", metrics.precision_score(Y_test_c, y_pred))
 print("Random forest classification recall:", metrics.recall_score(Y_test_c, y_pred))
 print("Random forest classification F1 score:", metrics.f1_score(Y_test_c, y_pred))
@@ -96,6 +96,7 @@ X_train_r, X_test_r, Y_train_r, Y_test_r = train_test_split(X_r, Y_r, test_size=
 scaler_r = preprocessing.StandardScaler().fit(X_r)
 X_train_r = scaler_r.transform(X_train_r)
 X_test_r = scaler_r.transform(X_test_r)
+X_scaled_r = scaler_c.transform(X_r)
 
 # SVM model construction
 # regression = SVR(kernel='rbf',C=10, epsilon=0.1, gamma= 0.01).fit(X_train_r, Y_train_r)
