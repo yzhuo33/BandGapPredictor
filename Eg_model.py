@@ -34,38 +34,38 @@ Y_c = Y_c.astype('int')
 X_train_c, X_test_c, Y_train_c, Y_test_c = train_test_split(X_c, Y_c, test_size=0.1, random_state=15, shuffle=True)
 
 # preprocessing
-scaler_c = preprocessing.StandardScaler().fit(X_c)
+scaler_c = preprocessing.StandardScaler().fit(X_train_c)
 X_train_c = scaler_c.transform(X_train_c)
 X_test_c = scaler_c.transform(X_test_c)
-X_scaled_c = scaler_c.transform(X_c)
+
 # SVM model construction
 # classification=SVC(kernel='rbf',C=10**1.5, gamma= 0.01).fit(X_train_c, Y_train_c)
 # print("SVM classification accuracy:", classification.score(X_test_c,  Y_test_c))
 
 # Random forest model construction
-classification = RandomForestClassifier(n_jobs=-1, random_state=101, max_features=13, n_estimators=150).fit(X_train_c, Y_train_c)
+classification = RandomForestClassifier(n_estimators=70, max_features=28, n_jobs=-1, random_state=101).fit(X_train_c, Y_train_c)
 # Estimation of classification model performance
 y_pred = classification.predict(X_test_c)
-print("Random forest classification accuracy:", classification.score(X_test_c,  Y_test_c)git )
+print("Random forest classification accuracy:", classification.score(X_test_c,  Y_test_c))
 print("Random forest classification precision:", metrics.precision_score(Y_test_c, y_pred))
 print("Random forest classification recall:", metrics.recall_score(Y_test_c, y_pred))
 print("Random forest classification F1 score:", metrics.f1_score(Y_test_c, y_pred))
 
+# Final model of classification with Random Forest
+scaler_c = preprocessing.StandardScaler().fit(X_c)
+X_scaled_c = scaler_c.transform(X_c)
+classification = RandomForestClassifier(n_estimators=70, max_features=28, n_jobs=-1, random_state=101).fit(X_scaled_c, Y_c)
+
 # Gradient Boosting model construction
-# classification = GradientBoostingClassifier(n_estimators=200,random_state=101).fit(X_train_c, Y_train_c)
+# classification = GradientBoostingClassifier(n_estimators=200, random_state=101).fit(X_train_c, Y_train_c)
 # # Estimation of classification model performance
 # y_pred = classification.predict(X_test_c)
 # print("Gradient Boosting classification accuracy:", classification.score(X_test_c,  Y_test_c))
 # print("Gradient Boosting classification precision:", metrics.precision_score(Y_test_c, y_pred))
 # print("Gradient Boosting classification recall:", metrics.recall_score(Y_test_c, y_pred))
 # print("Gradient Boosting classification F1 score:", metrics.f1_score(Y_test_c, y_pred))
-
-# Final model of classification with Random Forest
-# scaler_c = preprocessing.StandardScaler().fit(X_c)
-# X_scaled_c = scaler_c.transform(X_c)
-# classification = RandomForestClassifier(n_jobs=-1, random_state=101, n_estimators=200).fit(X_scaled_c, Y_c)
-
-# Final model of classification with Gradient Boosting
+#
+# # Final model of classification with Gradient Boosting
 # scaler_c = preprocessing.StandardScaler().fit(X_c)
 # X_scaled_c = scaler_c.transform(X_c)
 # classification = GradientBoostingClassifier(random_state=101).fit(X_scaled_c, Y_c)
@@ -80,7 +80,7 @@ print("Random forest classification F1 score:", metrics.f1_score(Y_test_c, y_pre
 # print("MLP  classification recall:", metrics.recall_score(Y_test_c, y_pred))
 # print("MLP  classification F1 score:", metrics.f1_score(Y_test_c, y_pred))
 
-# save model
+# save final model
 classification_model = pickle.dumps(classification)
 
 # Regression
@@ -93,39 +93,39 @@ Y_r = array_r[:, 1]
 X_train_r, X_test_r, Y_train_r, Y_test_r = train_test_split(X_r, Y_r, test_size=0.1, random_state=15, shuffle=True)
 
 # preprocessing
-scaler_r = preprocessing.StandardScaler().fit(X_r)
+# scaler_r = preprocessing.StandardScaler().fit(X_r)
+scaler_r = preprocessing.StandardScaler().fit(X_train_r)
 X_train_r = scaler_r.transform(X_train_r)
 X_test_r = scaler_r.transform(X_test_r)
-X_scaled_r = scaler_c.transform(X_r)
 
 # SVM model construction
 # regression = SVR(kernel='rbf',C=10, epsilon=0.1, gamma= 0.01).fit(X_train_r, Y_train_r)
 # print("SVM regression accuracy:", regression.score(X_test_r,  Y_test_r))
 
 # Random forest model construction
-regression = RandomForestRegressor(n_jobs=-1, random_state=101).fit(X_train_r, Y_train_r)
+regression = RandomForestRegressor(n_estimators=200, n_jobs=-1, random_state=101).fit(X_train_r, Y_train_r)
 predicted_Y1_r = regression.predict(X_train_r)
 predicted_Y_r = regression.predict(X_test_r)
 # Estimation of regression model performance
-print("Random forest regression accuracy:", regression.score(X_test_r,  Y_test_r))
+print("\nRandom forest regression accuracy:", regression.score(X_test_r,  Y_test_r))
 print('Mean Absolute Error (MAE):', metrics.mean_absolute_error(Y_test_r, predicted_Y_r))
 print('Mean Squared Error (MSE):', metrics.mean_squared_error(Y_test_r, predicted_Y_r))
 print('Root Mean Squared Error (RMSE):', metrics.mean_squared_error(Y_test_r, predicted_Y_r, squared=False))
 print('Explained Variance Score:', metrics.explained_variance_score(Y_test_r, predicted_Y_r))
 print('Mean Squared Log Error:', metrics.mean_squared_log_error(Y_test_r, predicted_Y_r))
 print('Median Absolute Error:', metrics.median_absolute_error(Y_test_r, predicted_Y_r))
-
-# Final model of regression with Random Forest
+#
+# # Final model of regression with Random Forest
 # scaler_r = preprocessing.StandardScaler().fit(X_r)
-# X_scaled_r = scaler_c.transform(X_r)
-# regression = RandomForestRegressor(n_jobs=-1, random_state=101, n_estimators=200).fit(X_scaled_r, Y_r)
+# X_scaled_r = scaler_r.transform(X_r)
+# regression = RandomForestRegressor(n_estimators=200,  n_jobs=-1, random_state=101).fit(X_scaled_r, Y_r)
 
 # Gradient Boosting model construction
 # regression = GradientBoostingRegressor(random_state=101).fit(X_train_r, Y_train_r)
 # predicted_Y1_r = regression.predict(X_train_r)
 # predicted_Y_r = regression.predict(X_test_r)
 # # Estimation of regression model performance
-# print("Gradient Boosting regression accuracy:", regression.score(X_test_r,  Y_test_r))
+# print("\nGradient Boosting regression accuracy:", regression.score(X_test_r,  Y_test_r))
 # print('Mean Absolute Error (MAE):', metrics.mean_absolute_error(Y_test_r, predicted_Y_r))
 # print('Mean Squared Error (MSE):', metrics.mean_squared_error(Y_test_r, predicted_Y_r))
 # print('Root Mean Squared Error (RMSE):', metrics.mean_squared_error(Y_test_r, predicted_Y_r, squared=False))
