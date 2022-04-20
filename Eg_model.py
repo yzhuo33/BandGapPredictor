@@ -2,7 +2,7 @@
 """
 Created on Wed May 13 13:56:18 2020
 Modified on Thu Feb 3 10:06:00 2022
-Modified on Fri Apr 20 15:36:00 2022
+Modified on Fri Apr 20 16:02:00 2022
 
 @author: Ya Zhuo, University of Houston
 @contributor Aleksei Krasnov, Insitute of Chemistry, Syktyvkar, Russia
@@ -56,30 +56,6 @@ scaler_c = preprocessing.StandardScaler().fit(X_c)
 X_scaled_c = scaler_c.transform(X_c)
 classification = RandomForestClassifier(n_estimators=70, max_features=28, n_jobs=-1, random_state=101).fit(X_scaled_c, Y_c)
 
-# Gradient Boosting model construction
-# classification = GradientBoostingClassifier(n_estimators=200, random_state=101).fit(X_train_c, Y_train_c)
-# # Estimation of classification model performance
-# y_pred = classification.predict(X_test_c)
-# print("Gradient Boosting classification accuracy:", classification.score(X_test_c,  Y_test_c))
-# print("Gradient Boosting classification precision:", metrics.precision_score(Y_test_c, y_pred))
-# print("Gradient Boosting classification recall:", metrics.recall_score(Y_test_c, y_pred))
-# print("Gradient Boosting classification F1 score:", metrics.f1_score(Y_test_c, y_pred))
-#
-# # Final model of classification with Gradient Boosting
-# scaler_c = preprocessing.StandardScaler().fit(X_c)
-# X_scaled_c = scaler_c.transform(X_c)
-# classification = GradientBoostingClassifier(random_state=101).fit(X_scaled_c, Y_c)
-
-# MLP model construction
-# classification = MLPClassifier(max_iter=1000, hidden_layer_sizes=(100,100,100,100),
-# 							   random_state=101).fit(X_train_c, Y_train_c)
-# # Estimation of classification model performance
-# y_pred = classification.predict(X_test_c)
-# print("MLP classification accuracy:", classification.score(X_test_c,  Y_test_c))
-# print("MLP  classification precision:", metrics.precision_score(Y_test_c, y_pred))
-# print("MLP  classification recall:", metrics.recall_score(Y_test_c, y_pred))
-# print("MLP  classification F1 score:", metrics.f1_score(Y_test_c, y_pred))
-
 # save final model
 classification_model = pickle.dumps(classification)
 
@@ -114,42 +90,6 @@ print('Root Mean Squared Error (RMSE):', metrics.mean_squared_error(Y_test_r, pr
 print('Explained Variance Score:', metrics.explained_variance_score(Y_test_r, predicted_Y_r))
 print('Mean Squared Log Error:', metrics.mean_squared_log_error(Y_test_r, predicted_Y_r))
 print('Median Absolute Error:', metrics.median_absolute_error(Y_test_r, predicted_Y_r))
-#
-# # Final model of regression with Random Forest
-# scaler_r = preprocessing.StandardScaler().fit(X_r)
-# X_scaled_r = scaler_r.transform(X_r)
-# regression = RandomForestRegressor(n_estimators=200,  n_jobs=-1, random_state=101).fit(X_scaled_r, Y_r)
-
-# Gradient Boosting model construction
-# regression = GradientBoostingRegressor(random_state=101).fit(X_train_r, Y_train_r)
-# predicted_Y1_r = regression.predict(X_train_r)
-# predicted_Y_r = regression.predict(X_test_r)
-# # Estimation of regression model performance
-# print("\nGradient Boosting regression accuracy:", regression.score(X_test_r,  Y_test_r))
-# print('Mean Absolute Error (MAE):', metrics.mean_absolute_error(Y_test_r, predicted_Y_r))
-# print('Mean Squared Error (MSE):', metrics.mean_squared_error(Y_test_r, predicted_Y_r))
-# print('Root Mean Squared Error (RMSE):', metrics.mean_squared_error(Y_test_r, predicted_Y_r, squared=False))
-# print('Explained Variance Score:', metrics.explained_variance_score(Y_test_r, predicted_Y_r))
-# print('Mean Squared Log Error:', metrics.mean_squared_log_error(Y_test_r, predicted_Y_r))
-# print('Median Absolute Error:', metrics.median_absolute_error(Y_test_r, predicted_Y_r))
-
-# Final model of regression with Gradient Boosting
-# scaler_r = preprocessing.StandardScaler().fit(X_r)
-# X_scaled_r = scaler_c.transform(X_r)
-# regression = GradientBoostingRegressor(random_state=101).fit(X_scaled_r, Y_r)
-
-# MLP model construction
-# regression = MLPRegressor(max_iter=1000,  hidden_layer_sizes=(100,100,100,100),
-# 						  random_state=101).fit(X_train_r, Y_train_r)
-# predicted_Y1_r = regression.predict(X_train_r)
-# predicted_Y_r = regression.predict(X_test_r)
-# # Estimation of regression model performance
-# print("MLP regression accuracy:", regression.score(X_test_r,  Y_test_r))
-# print('Mean Absolute Error (MAE):', metrics.mean_absolute_error(Y_test_r, predicted_Y_r))
-# print('Mean Squared Error (MSE):', metrics.mean_squared_error(Y_test_r, predicted_Y_r))
-# print('Root Mean Squared Error (RMSE):', metrics.mean_squared_error(Y_test_r, predicted_Y_r, squared=False))
-# print('Explained Variance Score:', metrics.explained_variance_score(Y_test_r, predicted_Y_r))
-# print('Median Absolute Error:', metrics.median_absolute_error(Y_test_r, predicted_Y_r))
 
 # save model
 regression_model = pickle.dumps(regression)
