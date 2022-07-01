@@ -10,6 +10,7 @@ __pychache__/
 *.xlsx
 *.py
 *.csv
+*.ipynb
 !Eg_model.py
 !Training_Set.xlsx
 !elements.xlsx
